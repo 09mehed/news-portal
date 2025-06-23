@@ -17,7 +17,7 @@ function Navbar() {
         <header className='py-4 shadow-md'>
             <nav className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
                 {/* logo */}
-                <div className='text-xl font-bold'>
+                <div className='font-bold'>
                     <Link href="/">Daily News</Link>
                 </div>
 
