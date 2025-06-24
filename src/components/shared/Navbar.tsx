@@ -1,5 +1,6 @@
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -11,8 +12,15 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { IoMenu } from 'react-icons/io5'
+import { usePathname } from 'next/navigation'
+import { AiOutlineClose } from 'react-icons/ai'
 
 function Navbar() {
+    const pathname = usePathname()
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen)
+    }
     return (
         <header className='py-4 shadow-md'>
             <nav className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
@@ -26,12 +34,12 @@ function Navbar() {
                     <NavigationMenuList className="flex gap-4">
                         {/* Regular Link */}
                         <NavigationMenuItem>
-                            <NavigationMenuLink href="/news" className='hover:text-red-500'>News</NavigationMenuLink>
+                            <NavigationMenuLink href="/news" className={`${pathname === '/news' ? 'text-red-500 font-bold' : ''}hover:text-red-500`}>News</NavigationMenuLink>
                         </NavigationMenuItem>
 
                         {/* Dropdown Menu */}
                         <NavigationMenuItem>
-                            <NavigationMenuLink href='/services'>
+                            <NavigationMenuLink href='/services' className={`${pathname === '/services' ? 'text-red-500 font-bold' : ''}hover:text-red-500`}>
                                 <NavigationMenuTrigger className='hover:text-red-500'>Services</NavigationMenuTrigger>
                                 <NavigationMenuContent className="">
                                     <ul className='text-gray-700 shadow-md rounded-md px-5 py-4 space-y-2'>
@@ -44,8 +52,8 @@ function Navbar() {
                         </NavigationMenuItem>
 
                         {/* Another Regular Link */}
-                        <NavigationMenuLink className='hover:text-red-500' href="/about">About</NavigationMenuLink>
-                        <NavigationMenuLink className='hover:text-red-500' href="/contact">Contact</NavigationMenuLink>
+                        <NavigationMenuLink className={`${pathname === '/about' ? 'text-red-500 font-bold' : ''}hover:text-red-500`} href="/about">About</NavigationMenuLink>
+                        <NavigationMenuLink className={`${pathname === '/contact' ? 'text-red-500 font-bold' : ''}hover:text-red-500`} href="/contact">Contact</NavigationMenuLink>
 
                     </NavigationMenuList>
 
@@ -64,7 +72,10 @@ function Navbar() {
 
                 {/* mobile menu */}
                 <div className='lg:hidden'>
-                    <Button><IoMenu size={24}/>
+                    <Button onClick={toggleMenu}>
+                        {
+                            isMenuOpen ? <AiOutlineClose size={24}></AiOutlineClose> : <IoMenu size={24}/>
+                        }
                     </Button>
                 </div>
             </nav>
